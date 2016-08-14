@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0042)http://www.mitan.co.uk/erlang/elgcmath.htm -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<!--STARTHEAD -->
+<!--CSS ../article.css -->
+<!--HDG The Erlang-C Formula - An Introduction -->
+<title>The Erlang-C Formula - An Introduction</title>
+
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="./The Erlang-C Formula - An Introduction_files/article.css" type="text/css" rel="stylesheet">
+<!--ENDHEAD -->
+<style type="text/css">@media print{.lpiframeoverlay{display:none}}</style><style type="text/css">@media print{.lpiframeoverlay{display:none}}</style></head>
+<body text="#000000" bgcolor="#ffffff"><div id="lptopspacer65355764" style="height: 40px;"></div>
+<!--=========================================================================-->
+<h1><a name="TOP">The Erlang-C Formula</a></h1>
+<p class="abstract">The widely-used Erlang-C formula is given here for people who want to see the actual mathematical definition.</p>
+<p class="copyright">by Mike Tanner. Copyright © MITAN Ltd 2000</p>
+<hr>
+<!--=========================================================================-->
+<center>
+<table border="0" width="96%">
+<!--========-->
+<tbody><tr>
+<td colspan="3">
+<p class="std">The Erlang-C calculations are described step by step below,
+using and example of 360 calls per half hour, with an average call duration of
+4 minutes, and 55 agents. The target answer time for service level is 15
+seconds.</p>
+</td>
+</tr>
+<!--========-->
+<tr>
+<td valign="top">
+<h4 style="font-size:10pt;margin-left:0;"><a name="ARVRATE">(1) Specify call arrival rate</a></h4>
+<p class="std">The first parameter needed is the average customer arrival rate.
+It doesn't matter what time unit is used to specify the arrival rate, as long
+as the same time unit is used for the average call duration. Also, the results
+we shall get for waiting time will be in these time units.</p>
+</td>
+<td valign="top"><img src="./The Erlang-C Formula - An Introduction_files/elgcdf12.gif" vspace="12" alt=""></td>
+<td valign="top"><img src="./The Erlang-C Formula - An Introduction_files/elgcdf13.gif" vspace="12" alt=""></td>
+</tr>
+<!--========-->
+<tr>
+<td valign="top">
+<h4 style="font-size:10pt;margin-left:0;"><a name="CALLDUR">(2) Specify call duration</a></h4>
+<p class="std">The second factor to be specified is the average call duration.
+This must be expressed in the same time unit used for the call arrival rate.</p>
+</td>
+<td valign="top"><img src="./The Erlang-C Formula - An Introduction_files/elgcdf22.gif" vspace="12" alt=""></td>
+<td valign="top"><img src="./The Erlang-C Formula - An Introduction_files/elgcdf23.gif" vspace="12" alt=""></td>
+</tr>
+<!--========-->
+<tr>
+<td valign="top">
+<h4 style="font-size:10pt;margin-left:0;"><a name="NUMAGTS">(3) Specify number of agents</a></h4>
+<p class="std">The third factor is the number of agents available.</p>
+</td>
+<td valign="top"><img src="./The Erlang-C Formula - An Introduction_files/elgcdf32.gif" vspace="12" alt=""></td>
+<td valign="top"><img src="./The Erlang-C Formula - An Introduction_files/elgcdf33.gif" vspace="12" alt=""></td>
+</tr>
+<!--========-->
+<tr>
+<td valign="top">
+<h4 style="font-size:10pt;margin-left:0;"><a name="TRAFFINT">(4) Calculate traffic intensity</a></h4>
+<p class="std">The term "traffic intensity" comes from the original application
+of Erlang-C, which was for telephone networks, and the volume of calls was
+described as the "traffic". We need to calculate the traffic intensity as a
+preliminary step to the rest of the calculations.</p>
+</td>
+<td valign="top"><img src="./The Erlang-C Formula - An Introduction_files/elgcdf42.gif" vspace="12" alt=""></td>
+<td valign="top"><img src="./The Erlang-C Formula - An Introduction_files/elgcdf43.gif" vspace="12" alt=""></td>
+</tr>
+<!--========-->
+<tr>
+<td valign="top">
+<h4 style="font-size:10pt;margin-left:0;">(5) Calculate agent occupancy</h4>
+<p class="std">The agent occupancy, or utilisation, is now calculated by
+dividing the traffic intensity by the number of agents. The agent occupancy
+will be between 0 and 1. If it is not less than 1 then the agents are
+overloaded, and the Erlang-C calculations are not meaningful, and may give negative
+waiting times.</p>
+</td>
+<td valign="top"><img src="./The Erlang-C Formula - An Introduction_files/elgcdf52.gif" vspace="12" alt=""></td>
+<td valign="top"><img src="./The Erlang-C Formula - An Introduction_files/elgcdf53.gif" vspace="12" alt=""></td>
+</tr>
+<!--========-->
+<tr>
+<td valign="top">
+<h4 style="font-size:10pt;margin-left:0;">(6) Calculate the Erlang-C formula</h4>
+<p class="std">Now we can calculate the main Erlang-C formula. This formula
+looks complicated, but is straightforward to calculate with a few lines of
+programming. The value of E<sub>C</sub>(m,u) is needed to calculate the answers
+we actually want.</p>  
+</td>
+<td colspan="2" valign="top"><img src="./The Erlang-C Formula - An Introduction_files/elgcdf62.gif" vspace="12" alt=""></td>
+</tr>
+<!--========-->
+<tr>
+<td valign="top">
+<h4 style="font-size:10pt;margin-left:0;">(7) Calculate probability of waiting</h4>
+<p class="std">
+E<sub>C</sub>(m,u) is the probability that a call is not answered immediately,
+and has to wait. This is a probability between 0 and 1, and to express it as a
+percentage of calls we multiply by 100%.</p>
+</td>
+<td valign="top"><img src="./The Erlang-C Formula - An Introduction_files/elgcdf72.gif" vspace="12" alt=""></td>
+<td valign="top"><img src="./The Erlang-C Formula - An Introduction_files/elgcdf73.gif" vspace="12" alt=""></td>  
+</tr>
+<!--========-->
+<tr>
+<td valign="top">
+<h4 style="font-size:10pt;margin-left:0;">(8) Calculate average speed of answer (ASA)</h4>
+<p class="std">Having calculated E<sub>C</sub>(m,u) it is quite easy to calculate
+the average waiting time for a call, which is often referred to as the
+"Average Speed of Answer" or ASA. We have to remember the time units we used for
+arrival rate and call duration.
+</p></td>
+<td valign="top"><img src="./The Erlang-C Formula - An Introduction_files/elgcdf82.gif" vspace="12" alt=""></td>
+<td valign="top"><img src="./The Erlang-C Formula - An Introduction_files/elgcdf83.gif" vspace="12" alt=""></td> 
+</tr>
+<!--========-->
+<tr>
+<td valign="top">
+<h4 style="font-size:10pt;margin-left:0;">(9) Calculate service level</h4>
+<p class="std">Frequently we want to calculate the probability that a call will
+be answered in less than a target waiting time. The formula for this is given
+here. Remember that, again, the probability will be on the scale 0 to 1 and
+should be multiplied by 100 to express it as a percentage.
+</p></td>
+<td valign="top"><img src="./The Erlang-C Formula - An Introduction_files/elgcdf92.gif" vspace="12" alt=""></td>
+<td valign="top"><img src="./The Erlang-C Formula - An Introduction_files/elgcdf93.gif" vspace="12" alt=""></td> 
+</tr>
+<!--========-->
+<tr>
+<td colspan="3" valign="top">
+<h4 style="font-size:10pt;margin-left:0;">(10) Calculate agents needed</h4>
+<p class="std">If the service level is specified and you want to calculate the
+number of agents needed, then you must do a bit of (intelligent) trial and error.
+You have to find the number of agents that will just achieve the service-level
+you want. A good starting point is the traffic intensity, rounded up to the next integer.
+the increase the number of agents until the required service-level is reached.</p>
+</td> 
+</tr>
+<!--========-->
+</tbody></table>
+</center>
+<hr>
+<!--=========================================================================-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>try{function lpshowmenudiv(id){   closelpmenus(id);   var div = document.getElementById('lppopup'+id);   var btn = document.getElementById('lp'+id);   if(btn && div){     var btnstyle = window.getComputedStyle(btn, null);     var divstyle = window.getComputedStyle(div, null);     var posx = btn.offsetLeft;     posx -= 80;     var divwidth = parseInt(divstyle.getPropertyValue('width'));     if(posx + divwidth > window.innerWidth - 25){       posx -= ((posx + divwidth) - window.innerWidth + 25);     }     div.style.left = posx + "px";     div.style.top = (btn.offsetTop + parseInt(btnstyle.getPropertyValue('height'))) + "px";         if(div.style.display=='block'){div.style.display = 'none'; if(typeof(slideup)=='function'){slideup();} }    else div.style.display = 'block';       } }function closelpmenus(id){   if(typeof(lpgblmenus)!='undefined'){     for(var i=0; i < lpgblmenus.length; i++){       if((id==null || lpgblmenus[i]!='lppopup'+id) && document.getElementById(lpgblmenus[i]))         document.getElementById(lpgblmenus[i]).style.display = 'none';     }   }} var lpcustomEvent = document.createEvent('Event'); lpcustomEvent.initEvent('lpCustomEventMenu', true, true); }catch(e){}</script><script>try{document.addEventListener('mouseup', function(e){ if(typeof(closelpmenus)=='function'){closelpmenus();}}, false)}catch(e){}</script><script>try{function lpshowmenudiv(id){   closelpmenus(id);   var div = document.getElementById('lppopup'+id);   var btn = document.getElementById('lp'+id);   if(btn && div){     var btnstyle = window.getComputedStyle(btn, null);     var divstyle = window.getComputedStyle(div, null);     var posx = btn.offsetLeft;     posx -= 80;     var divwidth = parseInt(divstyle.getPropertyValue('width'));     if(posx + divwidth > window.innerWidth - 25){       posx -= ((posx + divwidth) - window.innerWidth + 25);     }     div.style.left = posx + "px";     div.style.top = (btn.offsetTop + parseInt(btnstyle.getPropertyValue('height'))) + "px";         if(div.style.display=='block'){div.style.display = 'none'; if(typeof(slideup)=='function'){slideup();} }    else div.style.display = 'block';       } }function closelpmenus(id){   if(typeof(lpgblmenus)!='undefined'){     for(var i=0; i < lpgblmenus.length; i++){       if((id==null || lpgblmenus[i]!='lppopup'+id) && document.getElementById(lpgblmenus[i]))         document.getElementById(lpgblmenus[i]).style.display = 'none';     }   }} var lpcustomEvent = document.createEvent('Event'); lpcustomEvent.initEvent('lpCustomEventMenu', true, true); }catch(e){}</script><script>try{document.addEventListener('mouseup', function(e){ if(typeof(closelpmenus)=='function'){closelpmenus();}}, false)}catch(e){}</script><div id="lpiframeoverlay65355764" class="lpiframeoverlay" style="top: 0px; left: 0px; padding: 0px; height: 1px; width: 1218px; position: fixed; z-index: 1000000099; visibility: visible; background-color: black;"><iframe id="lpiframe65355764" src="./The Erlang-C Formula - An Introduction_files/overlay.html" scrolling="no" style="height: 40px; width: 1218px; border: 0px;"></iframe></div></body></html>
