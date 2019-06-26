@@ -1,4 +1,5 @@
 #' ErlangC Library
+#' Author: Steve Bastable June 2016
 #'
 #' @param m - the number of agents (integer greater than 0)
 #' @param u - the traffic intensity (unitless, given as average handling time (AHT) in time units multiplied by number of calls per same time unit, typically both in seconds)
